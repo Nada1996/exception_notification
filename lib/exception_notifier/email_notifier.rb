@@ -4,6 +4,7 @@ require 'action_mailer'
 require 'action_dispatch'
 require 'pp'
 require 'objspace'
+require "pry"
 
 module ExceptionNotifier
   class EmailNotifier < BaseNotifier
@@ -12,7 +13,9 @@ module ExceptionNotifier
     :email_prefix, :email_format, :sections, :background_sections,
     :verbose_subject, :normalize_subject, :delivery_method, :mailer_settings,
     :email_headers, :mailer_parent, :template_path, :deliver_with)
-
+     
+    binding.pry
+    
     module Mailer
       class MissingController
         def method_missing(*args, &block)
@@ -42,6 +45,27 @@ module ExceptionNotifier
 
             compose_email
           end
+          
+          def loadcontent ()
+            @sections_content = @sections.map do |section|
+               begin
+                 summary = render(section).strip
+                 unless summary.blank?
+                    #title = render("title", :title => section).strip
+                    title = (render partial: section).strip
+                    [title, summary]
+                end
+               rescue Exception => e
+                #title = render("title", :title => section).strip 
+                title = (render partial: section).strip
+                summary = ["ERROR: Failed to generate exception summary:", [e.class.to_s, e.message].join(": "), e.backtrace && e.backtrace.join("\n")].compact.join("\n\n")            
+                [title, summary]
+               end   
+             end  
+             if ObjectSpace.memsize_of(@sections_content) > 4294967296
+                @sections_content = @sections_content.first(10).to_h
+             end
+          end  
 
           def background_exception_notification(exception, options={}, default_options={})
             load_custom_views
