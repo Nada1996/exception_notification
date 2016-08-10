@@ -179,7 +179,7 @@ class EmailNotifierTest < ActiveSupport::TestCase
 
     email_notifier.shrink_section
     
-    assert_equal ( 10, sections_content.size )
+    assert_equal 10, sections_content.size 
 
   end
   
