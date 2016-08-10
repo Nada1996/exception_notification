@@ -56,12 +56,24 @@ module ExceptionNotifier
 
             compose_email
           end
-          
-           def shrink_sections
-                 if ObjectSpace.memsize_of(sections_content) > 4294967296
- +                sections_content = sections_content.first(10).to_h
-                 end
+          def load_content
+            @sections_content = @sections.map do |section|
+              render_section(section)
+              shrink_sections
+            end
           end
+
+         def render_sections(section)
+   
+          end
+
+        def shrink_sections
+           if ObjectSpace.memsize_of(sections_content) > 4294967296
+ +            sections_content = sections_content.first(10).to_h
+           end
+        end
+          
+        
           private
 
           def compose_subject
