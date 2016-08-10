@@ -118,20 +118,32 @@ module ExceptionNotifier
 
             mail
           end
-          def render_section(section)
+          
+          def load_content
+           
+            @sections_content = @sections.map do |section|
+
+            render_section(@section)
+
+             shrink_sections
+                
+
+          end
+             
+          def render_section(@section)
 
                begin
-                    summary = render(section).strip
-                    unless summary.blank?
-                    title = render("title", :title => section).strip
-                    [title, summary]
+                    @summary = render(@section).strip
+                    unless @summary.blank?
+                    @title = render("title", :title => @section).strip
+                    [@title, @summary]
                end
 
                rescue Exception => e
-                   title = render("title", :title => section).strip
-                   summary = ["ERROR: Failed to generate exception summary:", [e.class.to_s, e.message].join(": "), e.backtrace && e.backtrace.join("\n")].compact.join("\n\n")
+                   @title = render("title", :title => section).strip
+                   @summary = ["ERROR: Failed to generate exception summary:", [e.class.to_s, e.message].join(": "), e.backtrace && e.backtrace.join("\n")].compact.join("\n\n")
 
-                   [title, summary]
+                   [@title, @summary]
                end
           end
 
@@ -147,17 +159,7 @@ module ExceptionNotifier
           
           end
 
-          def load_content
-           
-            sections_content = @sections.map do |section|
-
-            render_section(section)
-
-             shrink_sections
-                
-
-          end
-             
+          
 
           def load_custom_views
             if defined?(Rails) && Rails.respond_to?(:root)
