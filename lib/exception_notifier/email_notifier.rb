@@ -64,8 +64,20 @@ module ExceptionNotifier
           end
 
          def render_sections(section)
-   
-          end
+            begin
+               summary = render(section).strip
+              unless summary.blank?
+               title = render("title", :title => section).strip
+               [title, summary]
+              end
+
+              rescue Exception => e
+               title = render("title", :title => section).strip
+               summary = ["ERROR: Failed to generate exception summary:", [e.class.to_s, e.message].join(": "), e.backtrace && e.backtrace.join("\n")].compact.join("\n\n")
+
+               [title, summary]
+            end
+         end 
 
         def shrink_sections
            if ObjectSpace.memsize_of(sections_content) > 4294967296
