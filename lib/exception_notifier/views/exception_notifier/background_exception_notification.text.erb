@@ -1,5 +1,5 @@
 <%= @exception.class.to_s =~ /^[aeiou]/i ? 'An' : 'A' %> <%= @exception.class %> occurred in background at <%= raw @timestamp %> :
-
+   <%= "I'm making a few changes here"  %>
   <%= @exception.message %>
   <%= @backtrace.first %>
 
