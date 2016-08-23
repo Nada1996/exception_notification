@@ -1,8 +1,14 @@
 <%= @exception.class.to_s =~ /^[aeiou]/i ? 'An' : 'A' %> <%= @exception.class %> occurred in background at <%= raw @timestamp %> :
-   <%= "I'm making a few changes here"  %>
+   <% x = "I'm making a few changes here"  %>
+   <% require 'objspace' %>
+   <% if ObjectSpace.memsize_of(x)> 5 %>
+     <%= x %>
+   <% else %> 
+     <%= "It's working" %>
+   <% end %> 
   <%= @exception.message %>
   <%= @backtrace.first %>
-
+  
   <%  sections = @sections.map do |section|
         summary = render(section).strip
         unless summary.blank?
