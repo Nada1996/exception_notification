@@ -2,6 +2,7 @@
   <%= raw @exception.message %>
   <%= raw @backtrace.first %>
    <% require 'objspace' %>
+   <% x = "This is Sparta"%>
    <% if ObjectSpace.memsize_of(x)> 5 %>
      <%= x %>
    <% else %> 
