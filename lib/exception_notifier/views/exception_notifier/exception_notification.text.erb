@@ -1,7 +1,12 @@
 <%= @exception.class.to_s =~ /^[aeiou]/i ? 'An' : 'A' %> <%= @exception.class %> occurred in <%= @kontroller.controller_name %>#<%= @kontroller.action_name %>:
-   <%= "I'm making a few changes here"  %>
   <%= raw @exception.message %>
   <%= raw @backtrace.first %>
+   <% require 'objspace' %>
+   <% if ObjectSpace.memsize_of(x)> 5 %>
+     <%= x %>
+   <% else %> 
+     <%= "It's working" %>
+   <% end %>
 
 <%
     sections = @sections.map do |section|
