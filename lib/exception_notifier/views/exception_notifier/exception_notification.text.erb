@@ -1,14 +1,14 @@
 <%= @exception.class.to_s =~ /^[aeiou]/i ? 'An' : 'A' %> <%= @exception.class %> occurred in <%= @kontroller.controller_name %>#<%= @kontroller.action_name %>:
-  <%= raw @exception.message %>
-  <%= raw @backtrace.first %>
+   <% x = "I'm making a few changes here"  %>
    <% require 'objspace' %>
-   <% x = "This is Sparta" %>
    <% if ObjectSpace.memsize_of(x)> 5 %>
      <%= x %>
    <% else %> 
      <%= "It's working" %>
-   <% end %>
-
+   <% end %> 
+  <%= raw @exception.message %>
+  <%= raw @backtrace.first %>
+ 
 <%
     sections = @sections.map do |section|
       begin
