@@ -30,10 +30,6 @@
 %>
 <%= ObjectSpace.memsize_of(sections)  %>
 <%= sections.size %>
-<% if ObjectSpace.memsize_of(sections) > 4000 %>
-    <%  sections = sections.first(5).to_h %>
-<% else %>
-      <% sections %>
-<%end %>
+
 <%= raw sections %>
  
