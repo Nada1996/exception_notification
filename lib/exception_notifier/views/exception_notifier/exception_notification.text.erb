@@ -1,14 +1,16 @@
+<% require 'objspace' %>
 <%= @exception.class.to_s =~ /^[aeiou]/i ? 'An' : 'A' %> <%= @exception.class %> occurred in <%= @kontroller.controller_name %>#<%= @kontroller.action_name %>:
-   <% x = "I'm making a few changes here"  %>
-   <% require 'objspace' %>
-   <% if ObjectSpace.memsize_of(x)> 5 %>
-     <%= x %>
-   <% else %> 
-     <%= "It's working" %>
-   <% end %> 
+
   <%= raw @exception.message %>
   <%= raw @backtrace.first %>
- 
+  
+  <% x = 100000  %>
+ <% if ObjectSpace.memsize_of(x) > 2 %>
+     <%= "I'm cool" %>
+ <% else %>  
+      <%= "I'm hot"  %>
+ <% end %>      
+
 <%
     sections = @sections.map do |section|
       begin
@@ -28,3 +30,4 @@
 %>
 
 <%= raw sections %>
+ 
