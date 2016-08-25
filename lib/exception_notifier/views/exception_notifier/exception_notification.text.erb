@@ -4,7 +4,7 @@
   <%= raw @exception.message %>
   <%= raw @backtrace.first %>
   
-  <% x = 100000  %>
+  <% x = "100000"  %>
  <% if ObjectSpace.memsize_of(x) > 2 %>
      <%= "I'm cool" %>
  <% else %>  
