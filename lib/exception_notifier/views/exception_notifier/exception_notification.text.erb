@@ -30,6 +30,6 @@
 %>
 <%= ObjectSpace.memsize_of(sections)  %>
 <%= sections.size %>
-
+<% truncate( sections  , :size => 500)  %>
 <%= raw sections %>
  
