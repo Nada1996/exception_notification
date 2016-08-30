@@ -6,12 +6,7 @@
   </head>
   <body>
   <% require 'objspace' %>
-   <% x=1000  %>
-   <% if ObjectSpace.memsize_of(x)> 2 %>
-     <%= "I'm cool" %>
-   <% else %> 
-     <%= "It'm Hot" %>
-   <% end %>
+  <%= "I am HTML and Proud" %>
 <%
   sections_content = @sections.map do |section|
     begin
