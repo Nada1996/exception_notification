@@ -20,6 +20,7 @@
       end
     end.join
 %>
+<%= sections.class  %>
 <%= ObjectSpace.memsize_of(sections)  %>
 <%= sections.size %>
 <%= raw truncate( sections  , length: 500 )  %>
